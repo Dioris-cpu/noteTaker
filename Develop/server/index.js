@@ -52,6 +52,19 @@ app.post('/api/notes',async (req, res) => {
     });
 });
 
+app.delete('/api/notes/:id', async (req, res) => {
+    const notesId = req.param.id;
+
+    const fileData = await fs.readFile(dbFilePath, "utf-8");
+    const data = JSON.parse(fileData);
+    const newData = data.filter(note => note.id == notesId);
+    await fs.writeFile(dbFilePath, JSON.stringify(newData));
+
+    res.json({
+        success: true
+    });
+});
+
 
 
 // redirect takes you back to the root file.
