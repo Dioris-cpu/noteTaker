@@ -39,8 +39,12 @@ app.post('/api/notes',async (req, res) => {
     const fileData = await fs.readFile(dbFilePath, "utf-8");
     const data = JSON.parse(fileData);
 
+    const gen_id = shortId.generate();
+
+    console.log(gen_id)
+
     data.push({
-        id: shortId.generate(),
+        id: gen_id,
         title,
         text
     })
@@ -53,11 +57,12 @@ app.post('/api/notes',async (req, res) => {
 });
 
 app.delete('/api/notes/:id', async (req, res) => {
-    const notesId = req.param.id;
-
+    const notesId = req.params.id;
     const fileData = await fs.readFile(dbFilePath, "utf-8");
     const data = JSON.parse(fileData);
-    const newData = data.filter(note => note.id == notesId);
+    console.log(JSON.stringify(data))
+    const newData = data.filter(note => note.id != notesId);
+    console.log(JSON.stringify(newData))
     await fs.writeFile(dbFilePath, JSON.stringify(newData));
 
     res.json({
