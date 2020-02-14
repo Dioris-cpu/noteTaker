@@ -6,9 +6,9 @@ const fs = require("fs").promises;
 const app = express();
 const port = 3000;
 
-const dbFilePath = path.resolve(__dirname, "..", "db", "db.json")
+const dbFilePath = path.resolve(__dirname, "Develop", "db", "db.json")
 
-app.use(express.static(('../public')))
+app.use(express.static(('Develop/public')))
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -16,13 +16,13 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 })); 
 
 app.get('/', (_, res) =>{
-    const filePath = path.resolve(__dirname, "..","public","index.html");
+    const filePath = path.resolve(__dirname,"Develop","public","index.html");
     res.sendFile(filePath);
 });
 
 
 app.get('/notes', (_, res) => {
-	const filePath = path.resolve(__dirname, "..", "public", "notes.html");
+	const filePath = path.resolve(__dirname, "Develop", "public", "notes.html");
 
 	res.sendFile(filePath);
 });
